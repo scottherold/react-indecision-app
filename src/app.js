@@ -1,11 +1,27 @@
 console.log('App.js is running');
 
+// *** VARIABLES *** //
+const userName = 'Scott';
+const userAge = 32;
+const userLocation = 'Baltimore';
+
+const user = {
+    name: 'Scott',
+    age: 32,
+    location: 'Baltimore'
+};
+
+const app = {
+    title: 'App Title',
+    subtitle: 'Welcome to the app'
+};
+
 // *** JSX VARIABLES *** //
 // ** Templates ** //
 const template = (
     <div>
-        <h1>Indecision App</h1>
-        <p>This is some info</p>
+        <h1>{app.title}</h1>
+        <p>{app.subtitle}</p>
         <ol>
             <li>Item one</li>
             <li>Item two</li>
@@ -15,9 +31,9 @@ const template = (
 
 const templateTwo = (
     <div>
-        <h1>Scott Herold</h1>
-        <p>Age: 32</p>
-        <p>Baltimore</p>
+        <h1>{user.name}</h1>
+        <p>{user.age}</p>
+        <p>{user.location}</p>
     </div>
 );
 
@@ -25,4 +41,4 @@ const templateTwo = (
 const appRoot = document.querySelector('#app');
 
 // *** RENDERING *** //
-ReactDOM.render(templateTwo, appRoot);
+ReactDOM.render(template, appRoot);

@@ -2,6 +2,22 @@
 
 console.log('App.js is running');
 
+// *** VARIABLES *** //
+var userName = 'Scott';
+var userAge = 32;
+var userLocation = 'Baltimore';
+
+var user = {
+    name: 'Scott',
+    age: 32,
+    location: 'Baltimore'
+};
+
+var app = {
+    title: 'App Title',
+    subtitle: 'Welcome to the app'
+};
+
 // *** JSX VARIABLES *** //
 // ** Templates ** //
 var template = React.createElement(
@@ -10,12 +26,12 @@ var template = React.createElement(
     React.createElement(
         'h1',
         null,
-        'Indecision App'
+        app.title
     ),
     React.createElement(
         'p',
         null,
-        'This is some info'
+        app.subtitle
     ),
     React.createElement(
         'ol',
@@ -39,17 +55,17 @@ var templateTwo = React.createElement(
     React.createElement(
         'h1',
         null,
-        'Scott Herold'
+        user.name
     ),
     React.createElement(
         'p',
         null,
-        'Age: 32'
+        user.age
     ),
     React.createElement(
         'p',
         null,
-        'Baltimore'
+        user.location
     )
 );
 
@@ -57,4 +73,4 @@ var templateTwo = React.createElement(
 var appRoot = document.querySelector('#app');
 
 // *** RENDERING *** //
-ReactDOM.render(templateTwo, appRoot);
+ReactDOM.render(template, appRoot);
