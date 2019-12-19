@@ -21,9 +21,13 @@ var user = {
     location: 'Baltimore'
 };
 
+// ** Counter Variables ** //
+var count = 0;
+
 // *** FUNCTIONS *** //
+// ** Location App ** //
 // You can include JSX syntax within functions
-function getLocation(location) {
+var getLocation = function getLocation(location) {
     if (location) {
         return React.createElement(
             'p',
@@ -32,6 +36,63 @@ function getLocation(location) {
             location
         );
     }
+};
+
+// ** Counter App ** //
+// Rendering
+var renderCounterApp = function renderCounterApp() {
+    /* 
+    / Ternary operator used for conditional name display
+    / Logical and operator used for age validation
+    / You can set functions within JSX expressions
+    / If the function returns 'undefined' it will not display the data within the expression
+    */
+    var templateTwo = React.createElement(
+        'div',
+        null,
+        React.createElement(
+            'h1',
+            null,
+            'Count: ',
+            count
+        ),
+        React.createElement(
+            'button',
+            { onClick: addOne },
+            '+1'
+        ),
+        React.createElement(
+            'button',
+            { onClick: minusOne },
+            '-1'
+        ),
+        React.createElement(
+            'button',
+            { onClick: reset },
+            'Resent'
+        )
+    );
+
+    // Rendering
+    ReactDOM.render(templateTwo, appRoot);
+};
+
+// increments counter
+var addOne = function addOne() {
+    count++;
+    renderCounterApp();
+};
+
+// decrements counter
+var minusOne = function minusOne() {
+    count--;
+    renderCounterApp();
+};
+
+// reset button
+var reset = function reset() {
+    count = 0;
+    renderCounterApp();
 };
 
 // *** JSX VARIABLES *** //
@@ -70,30 +131,8 @@ var template = React.createElement(
     )
 );
 
-/* 
-/ Ternary operator used for conditional name display
-/ Logical and operator used for age validation
-/ You can set functions within JSX expressions
-/ If the function returns 'undefined' it will not display the data within the expression
-*/
-var templateTwo = React.createElement(
-    'div',
-    null,
-    React.createElement(
-        'h1',
-        null,
-        user.name ? user.name : 'Anonymous'
-    ),
-    user.age && user.age >= 18 && React.createElement(
-        'p',
-        null,
-        user.age
-    ),
-    getLocation(user.location)
-);
-
 // *** ELEMENTS *** //
 var appRoot = document.querySelector('#app');
 
 // *** RENDERING *** //
-ReactDOM.render(template, appRoot);
+renderCounterApp();
