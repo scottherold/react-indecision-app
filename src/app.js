@@ -8,20 +8,25 @@ const app = {
     options: []
 };
 
+// ** ELEMENTS ** //
+const appRoot = document.querySelector('#app');
+
 // *** FUNCTIONS *** //
 // rendering
-const renderApp = () => {
+const render = () => {
     // * JSX Templates * //
     const template = (
         <div>
             <h1>{app.title}</h1>
             {app.subtitle && <p>{app.subtitle}</p>}
             <p>{app.options.length > 0 ? 'Here are your options' : 'No options'}</p>
-            <p>{app.options.length}</p>
+            <button disabled={app.options.length === 0} onClick={onMakeDecision}>What should i do?</button>
             <button onClick={onRemoveAll}>Remove All</button>
             <ol>
-                <li>Item one</li>
-                <li>Item two</li>
+                {
+                    /* array.map allows for an array to be mapped to a new array to transform into JSX w/ key props */
+                    app.options.map((option) => <li key={option}>{option}</li>)
+                }
             </ol>
             <form onSubmit={onFormSubmit}>
                 <input type="text" name="option" />
@@ -29,9 +34,6 @@ const renderApp = () => {
             </form>
         </div>
     );
-
-    // * ELEMENTS * //
-    const appRoot = document.querySelector('#app');
 
     // * RENDERING * //
     ReactDOM.render(template, appRoot);
@@ -52,7 +54,7 @@ const onFormSubmit = (e) => {
     if(option) {
         app.options.push(option);
         e.target.elements.option.value = '';
-        renderApp();
+        render();
     }
 };
 
@@ -60,9 +62,17 @@ const onFormSubmit = (e) => {
 const onRemoveAll = () => {
     if(app.options) {
         app.options = [];
-        renderApp();
+        render();
     }
 };
 
+// determine which option to select
+const onMakeDecision = () => {
+    // Math.floor() rounds down
+    const randomNum = Math.floor(Math.random() * app.options.length);
+    const option = app.options[randomNum];
+    alert(option);
+};
+
 // *** RENDERING *** //
-renderApp()
+render()

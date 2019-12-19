@@ -10,9 +10,12 @@ var app = {
     options: []
 };
 
+// ** ELEMENTS ** //
+var appRoot = document.querySelector('#app');
+
 // *** FUNCTIONS *** //
 // rendering
-var renderApp = function renderApp() {
+var render = function render() {
     // * JSX Templates * //
     var template = React.createElement(
         'div',
@@ -33,9 +36,9 @@ var renderApp = function renderApp() {
             app.options.length > 0 ? 'Here are your options' : 'No options'
         ),
         React.createElement(
-            'p',
-            null,
-            app.options.length
+            'button',
+            { disabled: app.options.length === 0, onClick: onMakeDecision },
+            'What should i do?'
         ),
         React.createElement(
             'button',
@@ -45,16 +48,15 @@ var renderApp = function renderApp() {
         React.createElement(
             'ol',
             null,
-            React.createElement(
-                'li',
-                null,
-                'Item one'
-            ),
-            React.createElement(
-                'li',
-                null,
-                'Item two'
-            )
+
+            /* array.map allows for an array to be mapped to a new array to transform into JSX w/ key props */
+            app.options.map(function (option) {
+                return React.createElement(
+                    'li',
+                    { key: option },
+                    option
+                );
+            })
         ),
         React.createElement(
             'form',
@@ -67,9 +69,6 @@ var renderApp = function renderApp() {
             )
         )
     );
-
-    // * ELEMENTS * //
-    var appRoot = document.querySelector('#app');
 
     // * RENDERING * //
     ReactDOM.render(template, appRoot);
@@ -90,7 +89,7 @@ var onFormSubmit = function onFormSubmit(e) {
     if (option) {
         app.options.push(option);
         e.target.elements.option.value = '';
-        renderApp();
+        render();
     }
 };
 
@@ -98,9 +97,17 @@ var onFormSubmit = function onFormSubmit(e) {
 var onRemoveAll = function onRemoveAll() {
     if (app.options) {
         app.options = [];
-        renderApp();
+        render();
     }
 };
 
+// determine which option to select
+var onMakeDecision = function onMakeDecision() {
+    // Math.floor() rounds down
+    var randomNum = Math.floor(Math.random() * app.options.length);
+    var option = app.options[randomNum];
+    alert(option);
+};
+
 // *** RENDERING *** //
-renderApp();
+render();
