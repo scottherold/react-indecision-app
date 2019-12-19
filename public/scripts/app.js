@@ -7,132 +7,100 @@ console.log('App.js is running');
 var app = {
     title: 'App Title',
     subtitle: 'Welcome to the app',
-    options: ['One', 'Two']
+    options: []
 };
-
-// ** User Variables ** //
-var userName = 'Scott';
-var userAge = 32;
-var userLocation = 'Baltimore';
-
-var user = {
-    name: 'Scott',
-    age: 32,
-    location: 'Baltimore'
-};
-
-// ** Counter Variables ** //
-var count = 0;
 
 // *** FUNCTIONS *** //
-// ** Location App ** //
-// You can include JSX syntax within functions
-var getLocation = function getLocation(location) {
-    if (location) {
-        return React.createElement(
-            'p',
-            null,
-            'Location: ',
-            location
-        );
-    }
-};
-
-// ** Counter App ** //
-// Rendering
-var renderCounterApp = function renderCounterApp() {
-    /* 
-    / Ternary operator used for conditional name display
-    / Logical and operator used for age validation
-    / You can set functions within JSX expressions
-    / If the function returns 'undefined' it will not display the data within the expression
-    */
-    var templateTwo = React.createElement(
+// rendering
+var renderApp = function renderApp() {
+    // * JSX Templates * //
+    var template = React.createElement(
         'div',
         null,
         React.createElement(
             'h1',
             null,
-            'Count: ',
-            count
+            app.title
+        ),
+        app.subtitle && React.createElement(
+            'p',
+            null,
+            app.subtitle
+        ),
+        React.createElement(
+            'p',
+            null,
+            app.options.length > 0 ? 'Here are your options' : 'No options'
+        ),
+        React.createElement(
+            'p',
+            null,
+            app.options.length
         ),
         React.createElement(
             'button',
-            { onClick: addOne },
-            '+1'
+            { onClick: onRemoveAll },
+            'Remove All'
         ),
         React.createElement(
-            'button',
-            { onClick: minusOne },
-            '-1'
+            'ol',
+            null,
+            React.createElement(
+                'li',
+                null,
+                'Item one'
+            ),
+            React.createElement(
+                'li',
+                null,
+                'Item two'
+            )
         ),
         React.createElement(
-            'button',
-            { onClick: reset },
-            'Resent'
+            'form',
+            { onSubmit: onFormSubmit },
+            React.createElement('input', { type: 'text', name: 'option' }),
+            React.createElement(
+                'button',
+                null,
+                'Add Option'
+            )
         )
     );
 
-    // Rendering
-    ReactDOM.render(templateTwo, appRoot);
+    // * ELEMENTS * //
+    var appRoot = document.querySelector('#app');
+
+    // * RENDERING * //
+    ReactDOM.render(template, appRoot);
 };
 
-// increments counter
-var addOne = function addOne() {
-    count++;
-    renderCounterApp();
+// form submit with event (e)
+var onFormSubmit = function onFormSubmit(e) {
+    e.preventDefault(); // <-- prevents full-page refresh
+
+    /*
+    / e.target points to the element which triggered the event
+    / target.elements provides access to the child elements by the 'name' attribute
+    / value grabs the element's value
+    */
+    var option = e.target.elements.option.value;
+
+    // if option present, push to app's options and resets the form
+    if (option) {
+        app.options.push(option);
+        e.target.elements.option.value = '';
+        renderApp();
+    }
 };
 
-// decrements counter
-var minusOne = function minusOne() {
-    count--;
-    renderCounterApp();
+// remove all options
+var onRemoveAll = function onRemoveAll() {
+    if (app.options) {
+        app.options = [];
+        renderApp();
+    }
 };
-
-// reset button
-var reset = function reset() {
-    count = 0;
-    renderCounterApp();
-};
-
-// *** JSX VARIABLES *** //
-// ** Templates ** //
-var template = React.createElement(
-    'div',
-    null,
-    React.createElement(
-        'h1',
-        null,
-        app.title
-    ),
-    app.subtitle && React.createElement(
-        'p',
-        null,
-        app.subtitle
-    ),
-    React.createElement(
-        'p',
-        null,
-        app.options.length > 0 ? 'Here are your options' : 'No options'
-    ),
-    React.createElement(
-        'ol',
-        null,
-        React.createElement(
-            'li',
-            null,
-            'Item one'
-        ),
-        React.createElement(
-            'li',
-            null,
-            'Item two'
-        )
-    )
-);
-
-// *** ELEMENTS *** //
-var appRoot = document.querySelector('#app');
 
 // *** RENDERING *** //
-renderCounterApp();
+renderApp();
