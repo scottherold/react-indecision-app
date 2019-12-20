@@ -1,4 +1,17 @@
 // *** COMPONENTS *** //
+class IndecisionApp extends React.Component {
+    render() {
+        return (
+            <div>
+                <Header />
+                <Action />
+                <Options />
+                <AddOption />
+            </div>
+        );
+    }
+}
+
 class Header extends React.Component {
     // React components are required to use the 'render()' function
     render() {
@@ -26,6 +39,17 @@ class Options extends React.Component {
         return (
             <div>
                 <p>Options component here</p>
+                <Option />
+            </div>
+        );
+    }
+}
+
+class Option extends React.Component {
+    render() {
+        return (
+            <div>
+                <p>Option component here</p>
             </div>
         );
     }
@@ -41,15 +65,5 @@ class AddOption extends React.Component {
     }
 }
 
-// *** TEMPLATES *** //
-const jsx = (
-    <div>
-        <Header /> {/* <-- This is how you inject a React component */}
-        <Action />
-        <Options />
-        <AddOption />
-     </div>
-);
-
 // *** RENDERING *** //
-ReactDOM.render(jsx, document.querySelector('#app'));
+ReactDOM.render(<IndecisionApp />, document.querySelector('#app'));
