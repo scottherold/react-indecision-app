@@ -1,11 +1,14 @@
 // *** COMPONENTS *** //
 class IndecisionApp extends React.Component {
     render() {
+        const title = 'Indecision';
+        const subtitle = 'Put your life in the hands of a computer';
+        const options = ['Thing one', 'Thing two', 'Thing four'];
         return (
             <div>
-                <Header />
+                <Header title={title} subtitle={subtitle} />
                 <Action />
-                <Options />
+                <Options options={options} />
                 <AddOption />
             </div>
         );
@@ -17,8 +20,13 @@ class Header extends React.Component {
     render() {
         return (
             <div>
-                <h1>Indecision</h1>
-                <h2>Put your life in the hands of a computer.</h2>
+                {/* 
+                    / You can pass data into a React component the 'props'
+                    / props are an object that is part of the instantiated component, so you must use 'this.props' to access
+                    / props are passed to the instantiated object when the component is called! (see the title being passed in the IndecisionApp component)
+                */}
+                <h1>{this.props.title}</h1> 
+                <h2>{this.props.subtitle}</h2>
             </div>
         );
     }
@@ -38,8 +46,9 @@ class Options extends React.Component {
     render() {
         return (
             <div>
-                <p>Options component here</p>
-                <Option />
+                {
+                    this.props.options.map((option) => <Option key={option} optionText={option}/>)
+                }
             </div>
         );
     }
@@ -49,7 +58,7 @@ class Option extends React.Component {
     render() {
         return (
             <div>
-                <p>Option component here</p>
+                Option: {this.props.optionText}
             </div>
         );
     }
