@@ -19,12 +19,13 @@ var IndecisionApp = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (IndecisionApp.__proto__ || Object.getPrototypeOf(IndecisionApp)).call(this, props));
 
         _this.state = {
-            options: ['Thing one', 'Thing two', 'Thing four']
+            options: []
         };
 
         // method binding
         _this.handleDeleteOptions = _this.handleDeleteOptions.bind(_this);
         _this.handlePick = _this.handlePick.bind(_this);
+        _this.handleAddOption = _this.handleAddOption.bind(_this);
         return _this;
     }
 
@@ -46,6 +47,28 @@ var IndecisionApp = function (_React$Component) {
             var randomNum = Math.floor(Math.random() * this.state.options.length);
             alert(this.state.options[randomNum]);
         }
+    }, {
+        key: 'handleAddOption',
+        value: function handleAddOption(option) {
+            if (!option) {
+                return 'Enter valid value to add item';
+            }
+
+            if (this.state.options.indexOf(option) > -1) {
+                return 'This option already exists';
+            }
+
+            this.setState(function (prevState) {
+
+                /*
+                / You do not want to directly manipulate the variable in state
+                / instead, you want to use the array.concat() method to create a new array that can be saved to the state
+                */
+                return {
+                    options: prevState.options.concat(option)
+                };
+            });
+        }
 
         // * Component Rendering * //
 
@@ -66,7 +89,9 @@ var IndecisionApp = function (_React$Component) {
                     options: this.state.options,
                     handleDeleteOptions: this.handleDeleteOptions
                 }),
-                React.createElement(AddOption, null)
+                React.createElement(AddOption, {
+                    handleAddOption: this.handleAddOption
+                })
             );
         }
     }]);
@@ -202,26 +227,41 @@ var Option = function (_React$Component5) {
 var AddOption = function (_React$Component6) {
     _inherits(AddOption, _React$Component6);
 
-    function AddOption() {
+    function AddOption(props) {
         _classCallCheck(this, AddOption);
 
-        return _possibleConstructorReturn(this, (AddOption.__proto__ || Object.getPrototypeOf(AddOption)).apply(this, arguments));
+        // Default Component State
+        var _this6 = _possibleConstructorReturn(this, (AddOption.__proto__ || Object.getPrototypeOf(AddOption)).call(this, props));
+
+        _this6.state = {
+            error: undefined
+        };
+
+        // Method Binding
+        _this6.handleAddOption = _this6.handleAddOption.bind(_this6); // <-- binds the component-specific handleAddOption for grabbing form data
+        return _this6;
     }
+
+    // * Methods * //
+    /*
+    / This method is being kept to grab information from the form within the component
+    / the props.handleAddOption() is going to be called within this function to pass data to the parent to manipulate state
+    */
+
 
     _createClass(AddOption, [{
         key: 'handleAddOption',
-
-        // * Methods * //
         value: function handleAddOption(e) {
             e.preventDefault(); // <-- prevents full-page refresh
 
             var option = e.target.elements.option.value.trim(); // <-- Cuts whitespace
+            e.target.elements.option.value = ''; // <-- clear form
+            var error = this.props.handleAddOption(option); // <-- returns undefined if everything goes well
 
-            // if option present, push to app's options and resets the form
-            if (option) {
-                alert('option!');
-                e.target.elements.option.value = ''; // <-- form reset
-            }
+            // Error Handling (Data Validation)
+            this.setState(function () {
+                return { error: error };
+            });
         }
 
         // * Component Rendering * //
@@ -232,6 +272,11 @@ var AddOption = function (_React$Component6) {
             return React.createElement(
                 'div',
                 null,
+                this.state.error && React.createElement(
+                    'p',
+                    null,
+                    this.state.error
+                ),
                 React.createElement(
                     'form',
                     { onSubmit: this.handleAddOption },

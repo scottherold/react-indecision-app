@@ -5,12 +5,13 @@ class IndecisionApp extends React.Component {
 
         // Default state
         this.state = {
-            options: ['Thing one', 'Thing two', 'Thing four']
+            options: []
         };
 
         // method binding
         this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
         this.handlePick = this.handlePick.bind(this);
+        this.handleAddOption = this.handleAddOption.bind(this);
     }
 
     // * Methods * //
@@ -25,6 +26,27 @@ class IndecisionApp extends React.Component {
     handlePick() {
         const randomNum = Math.floor(Math.random() * this.state.options.length);
         alert(this.state.options[randomNum]);
+    }
+
+    handleAddOption(option) {
+        if (!option) {
+            return 'Enter valid value to add item';
+        }
+
+        if (this.state.options.indexOf(option) > -1) {
+            return 'This option already exists';
+        }
+        
+        this.setState((prevState) => {
+
+            /*
+            / You do not want to directly manipulate the variable in state
+            / instead, you want to use the array.concat() method to create a new array that can be saved to the state
+            */
+            return {
+                options: prevState.options.concat(option)
+            }
+        });
     }
 
     // * Component Rendering * //
@@ -42,7 +64,9 @@ class IndecisionApp extends React.Component {
                     options={this.state.options}
                     handleDeleteOptions={this.handleDeleteOptions}
                 />
-                <AddOption />
+                <AddOption 
+                    handleAddOption={this.handleAddOption}
+                />
             </div>
         );
     }
@@ -109,23 +133,41 @@ class Option extends React.Component {
 }
 
 class AddOption extends React.Component {
+    constructor(props) {
+        super(props)
+
+        // Default Component State
+        this.state = {
+            error: undefined
+        };
+
+        // Method Binding
+        this.handleAddOption = this.handleAddOption.bind(this); // <-- binds the component-specific handleAddOption for grabbing form data
+    }
+    
     // * Methods * //
+    /*
+    / This method is being kept to grab information from the form within the component
+    / the props.handleAddOption() is going to be called within this function to pass data to the parent to manipulate state
+    */
     handleAddOption(e) {
         e.preventDefault(); // <-- prevents full-page refresh
 
         const option = e.target.elements.option.value.trim(); // <-- Cuts whitespace
+        e.target.elements.option.value = ''; // <-- clear form
+        const error = this.props.handleAddOption(option); // <-- returns undefined if everything goes well
 
-        // if option present, push to app's options and resets the form
-        if(option) {
-            alert('option!')
-            e.target.elements.option.value = ''; // <-- form reset
-        }
+        // Error Handling (Data Validation)
+        this.setState(() => {
+            return { error };
+        });
     }
     
     // * Component Rendering * //
     render() {
         return (
             <div>
+                {this.state.error && <p>{this.state.error}</p>}
                 <form onSubmit={this.handleAddOption}>
                 <input type="text" name="option" />
                 <button>Add Option</button>
