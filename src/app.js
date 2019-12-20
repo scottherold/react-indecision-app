@@ -1,15 +1,47 @@
 // *** COMPONENTS *** //
 class IndecisionApp extends React.Component {
+    constructor(props) {
+        super(props);
+
+        // Default state
+        this.state = {
+            options: ['Thing one', 'Thing two', 'Thing four']
+        };
+
+        // method binding
+        this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
+        this.handlePick = this.handlePick.bind(this);
+    }
+
+    // * Methods * //
+    handleDeleteOptions() {
+        this.setState(() => {
+            return {
+                options: []
+            };
+        });
+    }
+
+    handlePick() {
+        const randomNum = Math.floor(Math.random() * this.state.options.length);
+        alert(this.state.options[randomNum]);
+    }
+
     // * Component Rendering * //
     render() {
         const title = 'Indecision';
         const subtitle = 'Put your life in the hands of a computer';
-        const options = ['Thing one', 'Thing two', 'Thing four'];
         return (
             <div>
                 <Header title={title} subtitle={subtitle} />
-                <Action />
-                <Options options={options} />
+                <Action 
+                    hasOptions={this.state.options.length > 0} // Remember: Boolean false values are not rendered! This will toggle invisible if no options.
+                    handlePick={this.handlePick}
+                /> 
+                <Options 
+                    options={this.state.options}
+                    handleDeleteOptions={this.handleDeleteOptions}
+                />
                 <AddOption />
             </div>
         );
@@ -35,43 +67,27 @@ class Header extends React.Component {
 }
 
 class Action extends React.Component {
-    // * Methods * //
-    handlePick() {
-        alert('handlePick');
-    }
-
-    // * Component Rendering * //
     render() {
         return (
             <div>
-                <button onClick={this.handlePick}>What should I do?</button>
+                <button 
+                    onClick={this.props.handlePick}
+                    disabled={!this.props.hasOptions} // <-- disables button if not options
+                >
+                    What should I do?
+                </button>
             </div>
         );
     }
 }
 
 class Options extends React.Component {
-    constructor(props) {
-        super(props);
-
-        /*
-        / function binding to this (instance of component)
-        / binding it to 'this' within the constructor ensures that the function is properly bound in all instances of the component being rendered (instantiated)
-        */
-        this.handleRemoveAll = this.handleRemoveAll.bind(this);
-    }
-    
-    // * Methods * //
-    handleRemoveAll(){
-        alert(this.props.options);
-    }
-
     // * Component Rendering * //
     render() {
         return (
             <div>
                 {/* .bind(this) ensures that handleRemoveAll has the same binding as the render() function */}
-                <button onClick={this.handleRemoveAll}>Remove All</button>
+                <button onClick={this.props.handleDeleteOptions}>Remove All</button>
                 {
                     // Key must be passed
                     this.props.options.map((option) => <Option key={option} optionText={option}/>)
