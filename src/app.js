@@ -1,5 +1,6 @@
 // *** COMPONENTS *** //
 class IndecisionApp extends React.Component {
+    // * Component Rendering * //
     render() {
         const title = 'Indecision';
         const subtitle = 'Put your life in the hands of a computer';
@@ -17,6 +18,7 @@ class IndecisionApp extends React.Component {
 
 class Header extends React.Component {
     // React components are required to use the 'render()' function
+    // * Component Rendering * //
     render() {
         return (
             <div>
@@ -33,20 +35,45 @@ class Header extends React.Component {
 }
 
 class Action extends React.Component {
+    // * Methods * //
+    handlePick() {
+        alert('handlePick');
+    }
+
+    // * Component Rendering * //
     render() {
         return (
             <div>
-                <button>What should I do?</button>
+                <button onClick={this.handlePick}>What should I do?</button>
             </div>
         );
     }
 }
 
 class Options extends React.Component {
+    constructor(props) {
+        super(props);
+
+        /*
+        / function binding to this (instance of component)
+        / binding it to 'this' within the constructor ensures that the function is properly bound in all instances of the component being rendered (instantiated)
+        */
+        this.handleRemoveAll = this.handleRemoveAll.bind(this);
+    }
+    
+    // * Methods * //
+    handleRemoveAll(){
+        alert(this.props.options);
+    }
+
+    // * Component Rendering * //
     render() {
         return (
             <div>
+                {/* .bind(this) ensures that handleRemoveAll has the same binding as the render() function */}
+                <button onClick={this.handleRemoveAll}>Remove All</button>
                 {
+                    // Key must be passed
                     this.props.options.map((option) => <Option key={option} optionText={option}/>)
                 }
             </div>
@@ -55,6 +82,7 @@ class Options extends React.Component {
 }
 
 class Option extends React.Component {
+    // * Component Rendering * //
     render() {
         return (
             <div>
@@ -65,10 +93,27 @@ class Option extends React.Component {
 }
 
 class AddOption extends React.Component {
+    // * Methods * //
+    handleAddOption(e) {
+        e.preventDefault(); // <-- prevents full-page refresh
+
+        const option = e.target.elements.option.value.trim(); // <-- Cuts whitespace
+
+        // if option present, push to app's options and resets the form
+        if(option) {
+            alert('option!')
+            e.target.elements.option.value = ''; // <-- form reset
+        }
+    }
+    
+    // * Component Rendering * //
     render() {
         return (
             <div>
-                <p>AddOption component here</p>
+                <form onSubmit={this.handleAddOption}>
+                <input type="text" name="option" />
+                <button>Add Option</button>
+            </form>
             </div>
         );
     }

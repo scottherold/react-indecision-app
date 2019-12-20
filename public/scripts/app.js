@@ -20,6 +20,8 @@ var IndecisionApp = function (_React$Component) {
 
     _createClass(IndecisionApp, [{
         key: 'render',
+
+        // * Component Rendering * //
         value: function render() {
             var title = 'Indecision';
             var subtitle = 'Put your life in the hands of a computer';
@@ -51,6 +53,7 @@ var Header = function (_React$Component2) {
         key: 'render',
 
         // React components are required to use the 'render()' function
+        // * Component Rendering * //
         value: function render() {
             return React.createElement(
                 'div',
@@ -82,6 +85,16 @@ var Action = function (_React$Component3) {
     }
 
     _createClass(Action, [{
+        key: 'handlePick',
+
+        // * Methods * //
+        value: function handlePick() {
+            alert('handlePick');
+        }
+
+        // * Component Rendering * //
+
+    }, {
         key: 'render',
         value: function render() {
             return React.createElement(
@@ -89,7 +102,7 @@ var Action = function (_React$Component3) {
                 null,
                 React.createElement(
                     'button',
-                    null,
+                    { onClick: this.handlePick },
                     'What should I do?'
                 )
             );
@@ -102,18 +115,43 @@ var Action = function (_React$Component3) {
 var Options = function (_React$Component4) {
     _inherits(Options, _React$Component4);
 
-    function Options() {
+    function Options(props) {
         _classCallCheck(this, Options);
 
-        return _possibleConstructorReturn(this, (Options.__proto__ || Object.getPrototypeOf(Options)).apply(this, arguments));
+        /*
+        / function binding to this (instance of component)
+        / binding it to 'this' within the constructor ensures that the function is properly bound in all instances of the component being rendered (instantiated)
+        */
+        var _this4 = _possibleConstructorReturn(this, (Options.__proto__ || Object.getPrototypeOf(Options)).call(this, props));
+
+        _this4.handleRemoveAll = _this4.handleRemoveAll.bind(_this4);
+        return _this4;
     }
 
+    // * Methods * //
+
+
     _createClass(Options, [{
+        key: 'handleRemoveAll',
+        value: function handleRemoveAll() {
+            alert(this.props.options);
+        }
+
+        // * Component Rendering * //
+
+    }, {
         key: 'render',
         value: function render() {
             return React.createElement(
                 'div',
                 null,
+                React.createElement(
+                    'button',
+                    { onClick: this.handleRemoveAll },
+                    'Remove All'
+                ),
+
+                // Key must be passed
                 this.props.options.map(function (option) {
                     return React.createElement(Option, { key: option, optionText: option });
                 })
@@ -135,6 +173,8 @@ var Option = function (_React$Component5) {
 
     _createClass(Option, [{
         key: 'render',
+
+        // * Component Rendering * //
         value: function render() {
             return React.createElement(
                 'div',
@@ -158,15 +198,38 @@ var AddOption = function (_React$Component6) {
     }
 
     _createClass(AddOption, [{
+        key: 'handleAddOption',
+
+        // * Methods * //
+        value: function handleAddOption(e) {
+            e.preventDefault(); // <-- prevents full-page refresh
+
+            var option = e.target.elements.option.value.trim(); // <-- Cuts whitespace
+
+            // if option present, push to app's options and resets the form
+            if (option) {
+                alert('option!');
+                e.target.elements.option.value = ''; // <-- form reset
+            }
+        }
+
+        // * Component Rendering * //
+
+    }, {
         key: 'render',
         value: function render() {
             return React.createElement(
                 'div',
                 null,
                 React.createElement(
-                    'p',
-                    null,
-                    'AddOption component here'
+                    'form',
+                    { onSubmit: this.handleAddOption },
+                    React.createElement('input', { type: 'text', name: 'option' }),
+                    React.createElement(
+                        'button',
+                        null,
+                        'Add Option'
+                    )
                 )
             );
         }
