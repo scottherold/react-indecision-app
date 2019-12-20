@@ -1,42 +1,43 @@
-console.log('built-it-js is running');
+// *** COMPONENTS *** //
+class VisibilityToggle extends React.Component {
+    constructor(props) {
+        super(props);
 
-// *** VARIABLES *** //
-// ** App Variables ** //
-const app = {
-    title: 'Visibility Toggle',
-    details: 'Hey. These are some details you can now see!'
-};
+        // default state
+        this.state = {
+            title: 'Visibility Toggle',
+            details: 'Hey. These are some details that you can now see!',
+            visibility: false,
+        };
 
-let visibility = false;
+        // method binding
+        this.toggleVisibility = this.toggleVisibility.bind(this);
+    }
 
-// ** ELEMENTS ** //
-const appRoot = document.querySelector('#app');
+    // * Methods * //
+    toggleVisibility() {
+        this.setState((prevState) => {
+            return {
+                visibility: !prevState.visibility
+            }
+        })
+    }
 
-// *** FUNCTIONS *** //
-// rendering
-const render = () => {
-    // * JSX Templates * //
-    const jsx = (
-        <div>
-            <h1>{app.title}</h1>
-            <button onClick={toggleVisibility}>{visibility ? 'Hide Details' : 'Show Details'}</button>
-            {visibility && (
+    // * Rendering * //
+    render() {
+        return (
+            <div>
+            <h1>{this.state.title}</h1>
+            <button onClick={this.toggleVisibility}>{this.state.visibility ? 'Hide Details' : 'Show Details'}</button>
+            {this.state.visibility && (
                 <div>
-                    <p>{app.details}</p>
+                    <p>{this.state.details}</p>
                 </div>
             )}
         </div>
-    );
-
-    // * RENDERING * //
-    ReactDOM.render(jsx, appRoot);
-};
-
-// toggle visibility
-const toggleVisibility = () => {
-    visibility = !visibility;
-    render()
+        );
+    }
 };
 
 // *** RENDERING *** //
-render();
+ReactDOM.render(<VisibilityToggle />, document.querySelector('#app'));

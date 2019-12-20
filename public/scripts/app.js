@@ -9,59 +9,35 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 // *** COMPONENTS *** //
-var Counter = function (_React$Component) {
-    _inherits(Counter, _React$Component);
+var VisibilityToggle = function (_React$Component) {
+    _inherits(VisibilityToggle, _React$Component);
 
-    function Counter(props) {
-        _classCallCheck(this, Counter);
+    function VisibilityToggle(props) {
+        _classCallCheck(this, VisibilityToggle);
 
-        // Default state properties
-        var _this = _possibleConstructorReturn(this, (Counter.__proto__ || Object.getPrototypeOf(Counter)).call(this, props));
+        // default state
+        var _this = _possibleConstructorReturn(this, (VisibilityToggle.__proto__ || Object.getPrototypeOf(VisibilityToggle)).call(this, props));
 
         _this.state = {
-            count: 0
+            title: 'Visibility Toggle',
+            details: 'Hey. These are some details that you can now see!',
+            visibility: false
         };
 
-        // Function Component-Render Binding
-        _this.handleAddOne = _this.handleAddOne.bind(_this);
-        _this.handleMinusOne = _this.handleMinusOne.bind(_this);
-        _this.handleReset = _this.handleReset.bind(_this);
+        // method binding
+        _this.toggleVisibility = _this.toggleVisibility.bind(_this);
         return _this;
     }
 
     // * Methods * //
 
 
-    _createClass(Counter, [{
-        key: 'handleAddOne',
-        value: function handleAddOne() {
-            /*
-            / You cannot directly manipulate the state
-            / To change state, you must use the built in this.setState() function
-            / Within the function, prevState is available as an argument (you can name this whatever)
-            / Accessing prevState, you can access the previous state and update it by returning setState()
-            */
+    _createClass(VisibilityToggle, [{
+        key: 'toggleVisibility',
+        value: function toggleVisibility() {
             this.setState(function (prevState) {
                 return {
-                    count: prevState.count + 1
-                };
-            });
-        }
-    }, {
-        key: 'handleMinusOne',
-        value: function handleMinusOne() {
-            this.setState(function (prevState) {
-                return {
-                    count: prevState.count - 1
-                };
-            });
-        }
-    }, {
-        key: 'handleReset',
-        value: function handleReset() {
-            this.setState(function () {
-                return {
-                    count: 0
+                    visibility: !prevState.visibility
                 };
             });
         }
@@ -77,78 +53,30 @@ var Counter = function (_React$Component) {
                 React.createElement(
                     'h1',
                     null,
-                    'Count: ',
-                    this.state.count
+                    this.state.title
                 ),
                 React.createElement(
                     'button',
-                    { onClick: this.handleAddOne },
-                    '+1'
+                    { onClick: this.toggleVisibility },
+                    this.state.visibility ? 'Hide Details' : 'Show Details'
                 ),
-                React.createElement(
-                    'button',
-                    { onClick: this.handleMinusOne },
-                    '-1'
-                ),
-                React.createElement(
-                    'button',
-                    { onClick: this.handleReset },
-                    'Reset'
+                this.state.visibility && React.createElement(
+                    'div',
+                    null,
+                    React.createElement(
+                        'p',
+                        null,
+                        this.state.details
+                    )
                 )
             );
         }
     }]);
 
-    return Counter;
+    return VisibilityToggle;
 }(React.Component);
 
+;
+
 // *** RENDERING *** //
-
-
-ReactDOM.render(React.createElement(Counter, null), document.querySelector('#app'));
-
-// // ** Counter Variables ** //
-// let count = 0;
-
-// // *** FUNCTIONS *** //
-// // Rendering
-// const renderCounterApp = () => {
-//     /* 
-//     / Ternary operator used for conditional name display
-//     / Logical and operator used for age validation
-//     / You can set functions within JSX expressions
-//     / If the function returns 'undefined' it will not display the data within the expression
-//     */
-//     const templateTwo = (
-//         <div>
-//             <h1>Count: {count}</h1>
-//             <button onClick={addOne}>+1</button>
-//             <button onClick={minusOne}>-1</button>
-//             <button onClick={reset}>Resent</button>
-//         </div>
-//     );
-
-//     // Rendering
-//     ReactDOM.render(templateTwo, appRoot);
-// };
-
-// // increments counter
-// const addOne = () => { 
-//     count++;
-//     renderCounterApp();
-// };
-
-// // decrements counter
-// const minusOne = () => {
-//     count--;
-//     renderCounterApp();
-// };
-
-// // reset button
-// const reset = () => {
-//     count = 0;
-//     renderCounterApp();
-// };
-
-// // *** RENDERING *** //
-// renderCounterApp();
+ReactDOM.render(React.createElement(VisibilityToggle, null), document.querySelector('#app'));
