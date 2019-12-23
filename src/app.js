@@ -13,15 +13,19 @@ class IndecisionApp extends React.Component {
         this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
         this.handlePick = this.handlePick.bind(this);
         this.handleAddOption = this.handleAddOption.bind(this);
+        this.handleDeleteOption = this.handleDeleteOption.bind(this);
     }
 
     // * Methods * //
     handleDeleteOptions() {
-        this.setState(() => {
-            return {
-                options: []
-            };
-        });
+        this.setState(() => ({ options: [] })); // <-- Function shorthand; if returing an object you must surround the object inside parathensis
+    }
+
+    handleDeleteOption(optionToRemove) {
+        // removes the option from the array if it equals the option passed into the function
+        this.setState((prevState) => ({ 
+            options: prevState.options.filter((option) => optionToRemove !== option ) // <-- function shorthand
+        }));
     }
 
     handlePick() {
@@ -38,16 +42,7 @@ class IndecisionApp extends React.Component {
             return 'This option already exists';
         }
         
-        this.setState((prevState) => {
-
-            /*
-            / You do not want to directly manipulate the variable in state
-            / instead, you want to use the array.concat() method to create a new array that can be saved to the state
-            */
-            return {
-                options: prevState.options.concat(option)
-            }
-        });
+        this.setState((prevState) => ({ options: prevState.options.concat(option) })); // <-- Function shorthand; if returing an object you must surround the object inside parathensis
     }
 
     // * Component Rendering * //
@@ -64,6 +59,7 @@ class IndecisionApp extends React.Component {
                 <Options 
                     options={this.state.options}
                     handleDeleteOptions={this.handleDeleteOptions}
+                    handleDeleteOption={this.handleDeleteOption}
                 />
                 <AddOption 
                     handleAddOption={this.handleAddOption}
@@ -104,9 +100,7 @@ class AddOption extends React.Component {
         const error = this.props.handleAddOption(option); // <-- returns undefined if everything goes well
 
         // Error Handling (Data Validation)
-        this.setState(() => {
-            return { error };
-        });
+        this.setState(() => ( { error })); // <-- Function shorthand; if returing an object you must surround the object inside parathensis
     }
     
     // * Component Rendering * //
@@ -153,10 +147,16 @@ const Options = (props) => {
     return (
         <div>
             {/* .bind(this) ensures that handleRemoveAll has the same binding as the render() function */}
-            <button onClick={props.handleDeleteOptions}>Remove All</button>
+            <button onClick={props.handleDeleteOptions} >Remove All</button>
             {
                 // Key must be passed
-                props.options.map((option) => <Option key={option} optionText={option}/>)
+                props.options.map((option) => 
+                    <Option 
+                        key={option} 
+                        optionText={option} 
+                        handleDeleteOption={props.handleDeleteOption} // <-- prop chaining
+                    />
+                )
             }
         </div>
     );
@@ -165,7 +165,19 @@ const Options = (props) => {
 const Option = (props) => {
     return (
         <div>
-            Option: {props.optionText}
+            {props.optionText}
+            <button
+
+                /* 
+                / This is the proper way to send the data to the main component
+                / you need to grab the option's text value to send to the Component to manipulate the state
+                */
+                onClick={(e) => {
+                    props.handleDeleteOption(props.optionText); 
+                }}
+            >
+                remove
+            </button>
         </div>
     );
 };

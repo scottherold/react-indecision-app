@@ -27,6 +27,7 @@ var IndecisionApp = function (_React$Component) {
         _this.handleDeleteOptions = _this.handleDeleteOptions.bind(_this);
         _this.handlePick = _this.handlePick.bind(_this);
         _this.handleAddOption = _this.handleAddOption.bind(_this);
+        _this.handleDeleteOption = _this.handleDeleteOption.bind(_this);
         return _this;
     }
 
@@ -37,8 +38,18 @@ var IndecisionApp = function (_React$Component) {
         key: 'handleDeleteOptions',
         value: function handleDeleteOptions() {
             this.setState(function () {
+                return { options: [] };
+            }); // <-- Function shorthand; if returing an object you must surround the object inside parathensis
+        }
+    }, {
+        key: 'handleDeleteOption',
+        value: function handleDeleteOption(optionToRemove) {
+            // removes the option from the array if it equals the option passed into the function
+            this.setState(function (prevState) {
                 return {
-                    options: []
+                    options: prevState.options.filter(function (option) {
+                        return optionToRemove !== option;
+                    }) // <-- function shorthand
                 };
             });
         }
@@ -60,15 +71,8 @@ var IndecisionApp = function (_React$Component) {
             }
 
             this.setState(function (prevState) {
-
-                /*
-                / You do not want to directly manipulate the variable in state
-                / instead, you want to use the array.concat() method to create a new array that can be saved to the state
-                */
-                return {
-                    options: prevState.options.concat(option)
-                };
-            });
+                return { options: prevState.options.concat(option) };
+            }); // <-- Function shorthand; if returing an object you must surround the object inside parathensis
         }
 
         // * Component Rendering * //
@@ -89,7 +93,8 @@ var IndecisionApp = function (_React$Component) {
                 }),
                 React.createElement(Options, {
                     options: this.state.options,
-                    handleDeleteOptions: this.handleDeleteOptions
+                    handleDeleteOptions: this.handleDeleteOptions,
+                    handleDeleteOption: this.handleDeleteOption
                 }),
                 React.createElement(AddOption, {
                     handleAddOption: this.handleAddOption
@@ -145,7 +150,7 @@ var AddOption = function (_React$Component2) {
             // Error Handling (Data Validation)
             this.setState(function () {
                 return { error: error };
-            });
+            }); // <-- Function shorthand; if returing an object you must surround the object inside parathensis
         }
 
         // * Component Rendering * //
@@ -218,7 +223,11 @@ var Options = function Options(props) {
 
         // Key must be passed
         props.options.map(function (option) {
-            return React.createElement(Option, { key: option, optionText: option });
+            return React.createElement(Option, {
+                key: option,
+                optionText: option,
+                handleDeleteOption: props.handleDeleteOption // <-- prop chaining
+            });
         })
     );
 };
@@ -227,8 +236,21 @@ var Option = function Option(props) {
     return React.createElement(
         'div',
         null,
-        'Option: ',
-        props.optionText
+        props.optionText,
+        React.createElement(
+            'button',
+            {
+
+                /* 
+                / This is the proper way to send the data to the main component
+                / you need to grab the option's text value to send to the Component to manipulate the state
+                */
+                onClick: function onClick(e) {
+                    props.handleDeleteOption(props.optionText);
+                }
+            },
+            'remove'
+        )
     );
 };
 
