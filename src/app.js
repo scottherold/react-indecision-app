@@ -1,11 +1,12 @@
 // *** COMPONENTS *** //
+// ** React Components ** //
 class IndecisionApp extends React.Component {
     constructor(props) {
         super(props);
 
         // Default state
         this.state = {
-            options: []
+            options: props.options
         };
 
         // method binding
@@ -55,7 +56,7 @@ class IndecisionApp extends React.Component {
         const subtitle = 'Put your life in the hands of a computer';
         return (
             <div>
-                <Header title={title} subtitle={subtitle} />
+                <Header subtitle={subtitle} /> {/* Refactored with default props (see the component) */}
                 <Action 
                     hasOptions={this.state.options.length > 0} // Remember: Boolean false values are not rendered! This will toggle invisible if no options.
                     handlePick={this.handlePick}
@@ -72,65 +73,10 @@ class IndecisionApp extends React.Component {
     }
 }
 
-class Header extends React.Component {
-    // React components are required to use the 'render()' function
-    // * Component Rendering * //
-    render() {
-        return (
-            <div>
-                {/* 
-                    / You can pass data into a React component the 'props'
-                    / props are an object that is part of the instantiated component, so you must use 'this.props' to access
-                    / props are passed to the instantiated object when the component is called! (see the title being passed in the IndecisionApp component)
-                */}
-                <h1>{this.props.title}</h1> 
-                <h2>{this.props.subtitle}</h2>
-            </div>
-        );
-    }
-}
-
-class Action extends React.Component {
-    render() {
-        return (
-            <div>
-                <button 
-                    onClick={this.props.handlePick}
-                    disabled={!this.props.hasOptions} // <-- disables button if not options
-                >
-                    What should I do?
-                </button>
-            </div>
-        );
-    }
-}
-
-class Options extends React.Component {
-    // * Component Rendering * //
-    render() {
-        return (
-            <div>
-                {/* .bind(this) ensures that handleRemoveAll has the same binding as the render() function */}
-                <button onClick={this.props.handleDeleteOptions}>Remove All</button>
-                {
-                    // Key must be passed
-                    this.props.options.map((option) => <Option key={option} optionText={option}/>)
-                }
-            </div>
-        );
-    }
-}
-
-class Option extends React.Component {
-    // * Component Rendering * //
-    render() {
-        return (
-            <div>
-                Option: {this.props.optionText}
-            </div>
-        );
-    }
-}
+// * IndecisionApp Default Props * //
+IndecisionApp.defaultProps = {
+    options: []
+};
 
 class AddOption extends React.Component {
     constructor(props) {
@@ -167,6 +113,7 @@ class AddOption extends React.Component {
     render() {
         return (
             <div>
+                {/* Conditional and operator use */}
                 {this.state.error && <p>{this.state.error}</p>}
                 <form onSubmit={this.handleAddOption}>
                 <input type="text" name="option" />
@@ -177,5 +124,64 @@ class AddOption extends React.Component {
     }
 }
 
+// ** Functional Components ** //
+
+/*
+/ Since functional components take props as an argument, you do not need to use this.props, but just props
+*/
+
+const Header = (props) => {
+    return (
+        <div>
+            {/* 
+                / You can pass data into a React component the 'props'
+                / props are an object that is part of the instantiated component, so you must use 'this.props' to access
+                / props are passed to the instantiated object when the component is called! (see the title being passed in the IndecisionApp component)
+            */}
+            <h1>{props.title}</h1> 
+            {props.subtitle && <h2>{props.subtitle}</h2>}
+        </div>
+    );
+};
+
+// * Header Default Props * //
+Header.defaultProps = {
+    title: 'Indecision'
+};
+
+const Options = (props) => {
+    return (
+        <div>
+            {/* .bind(this) ensures that handleRemoveAll has the same binding as the render() function */}
+            <button onClick={props.handleDeleteOptions}>Remove All</button>
+            {
+                // Key must be passed
+                props.options.map((option) => <Option key={option} optionText={option}/>)
+            }
+        </div>
+    );
+};
+
+const Option = (props) => {
+    return (
+        <div>
+            Option: {props.optionText}
+        </div>
+    );
+};
+
+const Action = (props) => {
+    return (
+        <div>
+            <button 
+                onClick={props.handlePick}
+                disabled={!props.hasOptions} // <-- disables button if not options
+            >
+                What should I do?
+            </button>
+        </div>
+    );
+};
+
 // *** RENDERING *** //
-ReactDOM.render(<IndecisionApp />, document.querySelector('#app'));
+ReactDOM.render(<IndecisionApp options={['Option one', 'Option two']}/>, document.querySelector('#app'));

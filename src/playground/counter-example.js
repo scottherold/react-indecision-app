@@ -5,7 +5,7 @@ class Counter extends React.Component {
 
         // Default state properties
         this.state = {
-            count: 0
+            count: props.default
         };
 
         // Function Component-Render Binding
@@ -57,6 +57,11 @@ class Counter extends React.Component {
         );
     }
 }
+
+// * Counter Default Props * //
+Counter.defaultProps = {
+    count: 0
+};
 
 // *** RENDERING *** //
 ReactDOM.render(<Counter />, document.querySelector('#app'));
