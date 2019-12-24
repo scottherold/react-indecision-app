@@ -19,11 +19,27 @@ class IndecisionApp extends React.Component {
     // * Methods * //
     // Lifecycle Metods //
     componentDidMount() {
-        console.log('componentDidMount!');
+       try {
+            // updates state from local storage
+            const json = localStorage.getItem('options');
+            const options = JSON.parse(json); // <-- parses JSON to JavaScript object
+
+            // check to see if options present before changing state; default state of empty array becomes value
+            if (options) {
+                this.setState(() => ({ options: options }));
+            }
+       } catch (e) {
+           // Do nothing on error; default state of empty array becomes value
+       }
     }
 
-    componentDidUpdate() {
-        console.log('componentDidUpdate!');
+    componentDidUpdate(prevProps, prevState) {
+        // only save data if data has changed
+        if (prevState.options.length !== this.state.options.length) {
+            // Save updated data to local storage
+            const json = JSON.stringify(this.state.options);
+            localStorage.setItem('options', json);
+        }
     }
 
     componentWillUnmount() {
@@ -83,7 +99,7 @@ class IndecisionApp extends React.Component {
     }
 }
 
-// * IndecisionApp Default Props * //
+// * IndecisionApp Default State * //
 IndecisionApp.defaultProps = {
     options: []
 };
@@ -110,11 +126,15 @@ class AddOption extends React.Component {
         e.preventDefault(); // <-- prevents full-page refresh
 
         const option = e.target.elements.option.value.trim(); // <-- Cuts whitespace
-        e.target.elements.option.value = ''; // <-- clear form
         const error = this.props.handleAddOption(option); // <-- returns undefined if everything goes well
 
         // Error Handling (Data Validation)
         this.setState(() => ( { error })); // <-- Function shorthand; if returing an object you must surround the object inside parathensis
+
+        // if no error, clear the input form
+        if (!error) {
+            e.target.elements.option.value = '';
+        }
     }
     
     // * Component Rendering * //
@@ -162,6 +182,7 @@ const Options = (props) => {
         <div>
             {/* .bind(this) ensures that handleRemoveAll has the same binding as the render() function */}
             <button onClick={props.handleDeleteOptions} >Remove All</button>
+            {props.options.length === 0 && <p>Please add an option to get started!</p>} {/* <-- Default message for no options in state  */}
             {
                 // Key must be passed
                 props.options.map((option) => 
