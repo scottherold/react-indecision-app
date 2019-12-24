@@ -17,6 +17,20 @@ class IndecisionApp extends React.Component {
     }
 
     // * Methods * //
+    // Lifecycle Metods //
+    componentDidMount() {
+        console.log('componentDidMount!');
+    }
+
+    componentDidUpdate() {
+        console.log('componentDidUpdate!');
+    }
+
+    componentWillUnmount() {
+        console.log('componentWillUnmount');
+    }
+
+    // Event Handlers //
     handleDeleteOptions() {
         this.setState(() => ({ options: [] })); // <-- Function shorthand; if returing an object you must surround the object inside parathensis
     }
