@@ -5,7 +5,7 @@ class Counter extends React.Component {
 
         // Default state properties
         this.state = {
-            count: props.default
+            count: 0
         };
 
         // Function Component-Render Binding
@@ -15,6 +15,24 @@ class Counter extends React.Component {
     }
 
     // * Methods * //
+    // Lifecycle Methods //
+    componentDidMount() {
+        const count = parseInt(localStorage.getItem('count'), 10);
+
+        // scrub to see if count is a number
+        if (!isNaN(count)) {
+            this.setState(() => ({ count: count }));
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        // only save data if data has changed
+        if (prevState.count !== this.state.count) {
+            localStorage.setItem('count', this.state.count)
+        }
+    }
+
+    // Event Handling Methods //
     handleAddOne() {
         /*
         / You cannot directly manipulate the state
@@ -57,11 +75,6 @@ class Counter extends React.Component {
         );
     }
 }
-
-// * Counter Default Props * //
-Counter.defaultProps = {
-    count: 0
-};
 
 // *** RENDERING *** //
 ReactDOM.render(<Counter />, document.querySelector('#app'));

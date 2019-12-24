@@ -6,7 +6,7 @@ class IndecisionApp extends React.Component {
 
         // Default state
         this.state = {
-            options: props.options
+            options: []
         };
 
         // method binding
@@ -17,7 +17,7 @@ class IndecisionApp extends React.Component {
     }
 
     // * Methods * //
-    // Lifecycle Metods //
+    // Lifecycle Methods //
     componentDidMount() {
        try {
             // updates state from local storage
@@ -98,11 +98,6 @@ class IndecisionApp extends React.Component {
         );
     }
 }
-
-// * IndecisionApp Default State * //
-IndecisionApp.defaultProps = {
-    options: []
-};
 
 class AddOption extends React.Component {
     constructor(props) {
