@@ -1,4 +1,4 @@
-// entry -> output
+// *** Configuration of webpack *** //
 
 // *** MODULES *** //
 // ** native Modules ** //

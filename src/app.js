@@ -1,12 +1,12 @@
-// ** This is the application entry point *** //
+// *** This is the application entry point *** //
 
 // *** MODULES *** //
 // ** npm Modules ** //
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-// *** JSX *** //
-const template = <p>Hello World!</p>;
+// ** app Modules ** //
+import IndecisionApp from './components/IndecisionApp';
 
 // *** RENDERING *** //
-ReactDOM.render(template, document.querySelector('#app'));
+ReactDOM.render(<IndecisionApp options={['Option one', 'Option two']}/>, document.querySelector('#app'));
