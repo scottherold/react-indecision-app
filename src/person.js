@@ -14,6 +14,14 @@ const canDrink = (age) => {
     return false;
 };
 
+// ** Default Function ** //
+export default (age) => {
+    if (age >= 65) {
+        return true;
+    }
+    return false;
+};
+
 // *** EXPORTS *** //
 export {
     isAdult,

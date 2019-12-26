@@ -78,26 +78,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 console.log('app.js is running!');
-console.log(__WEBPACK_IMPORTED_MODULE_0__utils_js__["b" /* square */](4));
-console.log(__WEBPACK_IMPORTED_MODULE_0__utils_js__["a" /* add */](4,4));
-console.log(__WEBPACK_IMPORTED_MODULE_1__person__["b" /* isAdult */](16));
-console.log(__WEBPACK_IMPORTED_MODULE_1__person__["b" /* isAdult */](20));
-console.log(__WEBPACK_IMPORTED_MODULE_1__person__["a" /* canDrink */](16));
-console.log(__WEBPACK_IMPORTED_MODULE_1__person__["a" /* canDrink */](22));
+// console.log(square(4));
+// console.log(add(4,4));
+// console.log(isAdult(16));
+// console.log(isAdult(20));
+// console.log(canDrink(16));
+// console.log(canDrink(22));
+console.log(__WEBPACK_IMPORTED_MODULE_1__person__["a" /* default */](65));
 
 /***/ }),
 /* 1 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return square; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return add; });
+/* unused harmony export square */
+/* unused harmony export add */
 // *** This file contains utility functions *** //
 console.log('utils.js is running');
 
 // *** FUNCTIONS *** //
 const square = (x) => x * x;
 const add = (a, b) => a + b;
+
+// ** Default Function ** //
+/* unused harmony default export */ var _unused_webpack_default_export = ((a, b) => a - b);
 
 // *** EXPORTS *** //
 
@@ -107,8 +111,8 @@ const add = (a, b) => a + b;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return isAdult; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return canDrink; });
+/* unused harmony export isAdult */
+/* unused harmony export canDrink */
 // *** This file contains person functions *** //
 // *** FUNCTIONS *** //
 const isAdult = (age) => {
@@ -124,6 +128,14 @@ const canDrink = (age) => {
     }
     return false;
 };
+
+// ** Default Function ** //
+/* harmony default export */ __webpack_exports__["a"] = ((age) => {
+    if (age >= 65) {
+        return true;
+    }
+    return false;
+});
 
 // *** EXPORTS *** //
 
