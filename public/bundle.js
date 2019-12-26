@@ -65,9 +65,68 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__person__ = __webpack_require__(2);
+// ** This is the application entry point *** //
+
+// *** MODULES *** //
+
+
 
 console.log('app.js is running!');
+console.log(__WEBPACK_IMPORTED_MODULE_0__utils_js__["b" /* square */](4));
+console.log(__WEBPACK_IMPORTED_MODULE_0__utils_js__["a" /* add */](4,4));
+console.log(__WEBPACK_IMPORTED_MODULE_1__person__["b" /* isAdult */](16));
+console.log(__WEBPACK_IMPORTED_MODULE_1__person__["b" /* isAdult */](20));
+console.log(__WEBPACK_IMPORTED_MODULE_1__person__["a" /* canDrink */](16));
+console.log(__WEBPACK_IMPORTED_MODULE_1__person__["a" /* canDrink */](22));
+
+/***/ }),
+/* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return square; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return add; });
+// *** This file contains utility functions *** //
+console.log('utils.js is running');
+
+// *** FUNCTIONS *** //
+const square = (x) => x * x;
+const add = (a, b) => a + b;
+
+// *** EXPORTS *** //
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return isAdult; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return canDrink; });
+// *** This file contains person functions *** //
+// *** FUNCTIONS *** //
+const isAdult = (age) => {
+    if (age >= 18) {
+        return true;
+    }
+    return false;
+};
+
+const canDrink = (age) => {
+    if (age >= 21) {
+        return true;
+    }
+    return false;
+};
+
+// *** EXPORTS *** //
+
 
 /***/ })
 /******/ ]);
