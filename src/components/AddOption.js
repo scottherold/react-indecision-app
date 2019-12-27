@@ -1,4 +1,4 @@
-// *** Adds option to list of option on main page *** //
+// *** Add option form *** //
 
 // *** MODULES *** //
 import React from 'react';

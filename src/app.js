@@ -9,4 +9,4 @@ import ReactDOM from 'react-dom';
 import IndecisionApp from './components/IndecisionApp';
 
 // *** RENDERING *** //
-ReactDOM.render(<IndecisionApp options={['Option one', 'Option two']}/>, document.querySelector('#app'));
+ReactDOM.render(<IndecisionApp />, document.querySelector('#app'));
