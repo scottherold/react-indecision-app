@@ -3,20 +3,18 @@
 // *** MODULES *** //
 import React from 'react';
 
-// *** FUNCTIONAL COMPONENT *** //
-const Header = (props) => {
-    return (
-        <div>
-            {/* 
-                / You can pass data into a React component the 'props'
-                / props are an object that is part of the instantiated component, so you must use 'this.props' to access
-                / props are passed to the instantiated object when the component is called! (see the title being passed in the IndecisionApp component)
-            */}
-            <h1>{props.title}</h1> 
-            {props.subtitle && <h2>{props.subtitle}</h2>}
-        </div>
-    );
-};
+// *** FUNCTIONAL COMPONENT -- Refactored to 'implict return' aka, function shorthand *** //
+const Header = (props) => (
+    <div>
+        {/* 
+            / You can pass data into a React component the 'props'
+            / props are an object that is part of the instantiated component, so you must use 'this.props' to access
+            / props are passed to the instantiated object when the component is called! (see the title being passed in the IndecisionApp component)
+        */}
+        <h1>{props.title}</h1> 
+        {props.subtitle && <h2>{props.subtitle}</h2>}
+    </div>
+);
 
 // * Header Default Props * //
 Header.defaultProps = {
