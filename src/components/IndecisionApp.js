@@ -10,24 +10,51 @@ import Action from './Action';
 import Options from './Options';
 
 // *** COMPONENT *** //
+
+/*
+/ Refactored to ES6 Class Structure (with .babelrc plugin)
+/ state is now a class property
+/ 'Event Handler' methods changed to arrow function in order to remove arcane 'this' binding
+/ 'Lifecycle' methods remain the same
+/ Unnecessary constructor removed
+*/
 export default class IndecisionApp extends React.Component {
-    constructor(props) {
-        super(props);
+    // Default state
+    state = {
+        options: []
+    };
 
-        // Default state
-        this.state = {
-            options: []
-        };
-
-        // method binding
-        this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
-        this.handlePick = this.handlePick.bind(this);
-        this.handleAddOption = this.handleAddOption.bind(this);
-        this.handleDeleteOption = this.handleDeleteOption.bind(this);
+    // ** Methods ** //
+    // * Event Handlers * //
+    handleDeleteOptions = () => {
+        this.setState(() => ({ options: [] })); // <-- Function shorthand; if returing an object you must surround the object inside parathensis
     }
 
-    // * Methods * //
-    // Lifecycle Methods //
+    handleDeleteOption = (optionToRemove) => {
+        // removes the option from the array if it equals the option passed into the function
+        this.setState((prevState) => ({ 
+            options: prevState.options.filter((option) => optionToRemove !== option ) // <-- function shorthand
+        }));
+    }
+
+    handlePick = () => {
+        const randomNum = Math.floor(Math.random() * this.state.options.length);
+        alert(this.state.options[randomNum]);
+    }
+
+    handleAddOption = (option) => {
+        if (!option) {
+            return 'Enter valid value to add item';
+        }
+
+        if (this.state.options.indexOf(option) > -1) {
+            return 'This option already exists';
+        }
+        
+        this.setState((prevState) => ({ options: prevState.options.concat(option) })); // <-- Function shorthand; if returing an object you must surround the object inside parathensis
+    }
+
+    // * Lifecycle Methods * //
     componentDidMount() {
        try {
             // updates state from local storage
@@ -55,36 +82,7 @@ export default class IndecisionApp extends React.Component {
     componentWillUnmount() {
         console.log('componentWillUnmount');
     }
-
-    // Event Handlers //
-    handleDeleteOptions() {
-        this.setState(() => ({ options: [] })); // <-- Function shorthand; if returing an object you must surround the object inside parathensis
-    }
-
-    handleDeleteOption(optionToRemove) {
-        // removes the option from the array if it equals the option passed into the function
-        this.setState((prevState) => ({ 
-            options: prevState.options.filter((option) => optionToRemove !== option ) // <-- function shorthand
-        }));
-    }
-
-    handlePick() {
-        const randomNum = Math.floor(Math.random() * this.state.options.length);
-        alert(this.state.options[randomNum]);
-    }
-
-    handleAddOption(option) {
-        if (!option) {
-            return 'Enter valid value to add item';
-        }
-
-        if (this.state.options.indexOf(option) > -1) {
-            return 'This option already exists';
-        }
-        
-        this.setState((prevState) => ({ options: prevState.options.concat(option) })); // <-- Function shorthand; if returing an object you must surround the object inside parathensis
-    }
-
+    
     // * Component Rendering * //
     render() {
         const title = 'Indecision';

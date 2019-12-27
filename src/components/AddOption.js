@@ -4,25 +4,26 @@
 import React from 'react';
 
 // *** COMPONENT *** //
+
+/*
+/ Refactored to ES6 Class Structure (with .babelrc plugin)
+/ state is now a class property
+/ 'Event Handler' methods changed to arrow function in order to remove arcane 'this' binding
+/ Unnecessary constructor removed
+*/
 export default class AddOption extends React.Component {
-    constructor(props) {
-        super(props)
-
-        // Default Component State
-        this.state = {
-            error: undefined
-        };
-
-        // Method Binding
-        this.handleAddOption = this.handleAddOption.bind(this); // <-- binds the component-specific handleAddOption for grabbing form data
+    // Default Component State
+    state = {
+        error: undefined
     }
     
     // * Methods * //
+    // Event Handlers //
     /*
     / This method is being kept to grab information from the form within the component
     / the props.handleAddOption() is going to be called within this function to pass data to the parent to manipulate state
     */
-    handleAddOption(e) {
+    handleAddOption = (e) => {
         e.preventDefault(); // <-- prevents full-page refresh
 
         const option = e.target.elements.option.value.trim(); // <-- Cuts whitespace

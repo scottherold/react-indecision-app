@@ -1,8 +1,11 @@
-// *** Configures Babel loader for which settings to use (Vanilla JS & JSX) *** //
+// *** Configures Babel loader for which settings to use (env: Vanilla JS & react: JSX) *** //
 
 {
     "presets": [
         "env",
         "react"
+    ],
+    "plugins": [
+        "transform-class-properties"
     ]
 }
