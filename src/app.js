@@ -1,12 +1,12 @@
-// *** This is the application entry point *** //
+// *** Displays the components from the main page and manages application state *** //
 
 // *** MODULES *** //
-// ** npm Modules ** //
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './styles/styles.scss';
 
 // ** app Modules ** //
-import IndecisionApp from './components/IndecisionApp';
+import IndecisionApp from './components/IndecisionApp'
 
 // *** RENDERING *** //
 ReactDOM.render(<IndecisionApp />, document.querySelector('#app'));
