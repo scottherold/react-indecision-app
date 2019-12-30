@@ -1,5 +1,4 @@
-$brand-color: blue;
+// *** Styles entry-point *** //
 
-* {
-    color: $brand-color
-}
+@import './base/base';
+@import './components/header';

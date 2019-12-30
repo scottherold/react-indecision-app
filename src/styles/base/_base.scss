@@ -1,0 +1,10 @@
+// *** Universal app styles *** //
+
+html {
+    font-size: 62.5%; // <-- sets rem to a base 10 (1 rem = 16 pixels. 62.5% of 16 is 10 pixels)
+}
+
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 1.6rem;
+}
