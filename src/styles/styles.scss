@@ -1,4 +1,6 @@
 // *** Styles entry-point *** //
 
+@import './base/settings';
 @import './base/base';
+@import './components/container';
 @import './components/header';

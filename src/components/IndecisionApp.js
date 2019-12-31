@@ -96,18 +96,20 @@ export default class IndecisionApp extends React.Component {
         return (
             <div>
                 <Header subtitle={subtitle} /> {/* Refactored with default props (see the component) */}
-                <Action 
-                    hasOptions={this.state.options.length > 0} // Remember: Boolean false values are not rendered! This will toggle invisible if no options.
-                    handlePick={this.handlePick}
-                /> 
-                <Options 
-                    options={this.state.options}
-                    handleDeleteOptions={this.handleDeleteOptions}
-                    handleDeleteOption={this.handleDeleteOption}
-                />
-                <AddOption 
-                    handleAddOption={this.handleAddOption}
-                />
+                <div className='container'>
+                    <Action 
+                        hasOptions={this.state.options.length > 0} // Remember: Boolean false values are not rendered! This will toggle invisible if no options.
+                        handlePick={this.handlePick}
+                    /> 
+                    <Options 
+                        options={this.state.options}
+                        handleDeleteOptions={this.handleDeleteOptions}
+                        handleDeleteOption={this.handleDeleteOption}
+                    />
+                    <AddOption 
+                        handleAddOption={this.handleAddOption}
+                    />
+                </div>
                 <OptionModal 
                     selectedOption={this.state.selectedOption}
                     handleClearPick={this.handleClearPick}
