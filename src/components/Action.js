@@ -6,11 +6,12 @@ import React from 'react';
 // *** FUNCTIONAL COMPONENT -- Refactored to 'implict return' aka, function shorthand *** //
 const Action = (props) => (
     <div>
-        <button 
+        <button
+            className="big-button"
             onClick={props.handlePick}
             disabled={!props.hasOptions} // <-- disables button if not options
         >
-            What should I do?
+            What Should I do?
         </button>
     </div>
 );

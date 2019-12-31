@@ -8,7 +8,12 @@ import Option from './Option'
 const Options = (props) => (
     <div>
         {/* .bind(this) ensures that handleRemoveAll has the same binding as the render() function */}
-        <button onClick={props.handleDeleteOptions} >Remove All</button>
+        <button 
+            className="button button--link"
+            onClick={props.handleDeleteOptions} 
+        >
+            Remove All
+        </button>
         {props.options.length === 0 && <p>Please add an option to get started!</p>} {/* <-- Default message for no options in state  */}
         {
             // Key must be passed

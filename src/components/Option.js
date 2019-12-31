@@ -13,6 +13,7 @@ const Option = (props) => (
             / This is the proper way to send the data to the main component
             / you need to grab the option's text value to send to the Component to manipulate the state
             */
+            className="button button--link"
             onClick={(e) => {
                 props.handleDeleteOption(props.optionText); 
             }}
