@@ -5,8 +5,8 @@ import React from 'react';
 
 // *** FUNCTIONAL COMPONENT -- Refactored to 'implict return' aka, function shorthand *** //
 const Option = (props) => (
-    <div>
-        {props.optionText}
+    <div className="option">
+    <p className="option__text">{props.count}. {props.optionText}</p>
         <button
 
             /* 

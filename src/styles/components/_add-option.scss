@@ -1,0 +1,24 @@
+// *** This file is styling for the form to add a new option/error message *** //
+
+.add-option-error {
+    color: $off-white;
+    font-style: italic;
+    margin: $m-size 0 0 0; // <-- top margin only
+    padding: 0 $m-size; // <-- horizontal margin only
+}
+
+// Add option
+.add-option {
+    display: flex;
+    padding: $m-size;
+}
+
+.add-option__input {
+    background: $dark-blue;
+    border: none; // <-- first remove border before adding a custom border (input has default borders)
+    color: $off-white;
+    border-bottom: .3rem solid darken($dark-blue, 10%);
+    flex-grow: 1; // <-- stretches the input box to grow with the screen
+    margin-right: $s-size; // <-- space between input and button
+    padding: $s-size;
+}

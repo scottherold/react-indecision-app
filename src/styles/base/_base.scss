@@ -19,3 +19,16 @@ button {
 button:disabled {
     cursor: default;
 }
+
+// remove input autofill input color, set to default dark
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px $dark-blue inset;
+}
+
+// set input autofill text to white
+input:-webkit-autofill {
+    -webkit-text-fill-color: white;
+}
