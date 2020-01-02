@@ -6,8 +6,7 @@ import ReactDOM from 'react-dom';
 import 'normalize.css/normalize.css';
 
 // ** app Modules ** //
-import IndecisionApp from './components/IndecisionApp'
 import './styles/styles.scss';
 
 // *** RENDERING *** //
-ReactDOM.render(<IndecisionApp />, document.querySelector('#app'));
+ReactDOM.render(<p>This is my boilerplate</p>, document.querySelector('#app'));

@@ -7,7 +7,6 @@ html {
 }
 
 body {
-    background-color: $dark-blue;
     font-family: Helvetica, Arial, sasns-serif;
     font-size: $m-size;
 }
@@ -25,15 +24,15 @@ button:disabled {
 / set default text color to off-white
 */
 input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 30px $dark-blue inset;
+    -webkit-box-shadow: 0 0 0 30px white inset;
     -webkit-text-fill-color: $off-white;
 }
 input:-webkit-autofill:hover {
-    -webkit-box-shadow: 0 0 0 30px $dark-blue inset;
+    -webkit-box-shadow: 0 0 0 30px white inset;
 }
 input:-webkit-autofill:focus {
-    -webkit-box-shadow: 0 0 0 30px $dark-blue inset;
+    -webkit-box-shadow: 0 0 0 30px white inset;
 }
 input:-webkit-autofill:active  {
-    -webkit-box-shadow: 0 0 0 30px $dark-blue inset;
+    -webkit-box-shadow: 0 0 0 30px white inset;
 }
