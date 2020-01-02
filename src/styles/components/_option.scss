@@ -7,9 +7,11 @@
     padding: $l-size $m-size;
 }
 
+// by default, words to not utilize line-break. Because of this, you need to manually set words to break!
 .option__text {
     color: white;
     font-weight: 500;
     font-size: 2rem;
     margin: 0;
+    word-break: break-all; // <-- manually sets words to break
 }

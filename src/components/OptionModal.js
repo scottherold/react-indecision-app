@@ -10,11 +10,13 @@ const OptionModal = (props) => (
         isOpen={!!props.selectedOption} // <-- Converts variable that can be a string or undefined into a boolean
         onRequestClose={props.handleClearPick}
         contentLabel="Selected Option"
+        closeTimeoutMS={200}
+        className="modal"
     >
-        <h3>Selected Option</h3>
+        <h3 className="modal__title">Selected Option</h3>
         {/* Logical && Operator to determine if selectedOption is provided */}
-        {props.selectedOption && <p>{props.selectedOption}</p>}
-        <button onClick={props.handleClearPick}>Okay</button>
+        {props.selectedOption && <p className="modal__body">{props.selectedOption}</p>}
+        <button className="button" onClick={props.handleClearPick}>Okay</button>
     </Modal>
 );
 
