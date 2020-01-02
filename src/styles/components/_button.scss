@@ -1,5 +1,7 @@
 // *** Style for the application's buttons *** //
 
+// Refactored to default for mobile devices; media query for larger devices
+
 // 'What Should I Do?' button
 .big-button {
     background-color: $purple;
@@ -8,7 +10,7 @@
     color: white;
     font-weight: bold;
     font-size: $l-size;
-    margin-bottom: $xl-size;
+    margin-bottom: $m-size;
     padding: 2.4rem;
     width: 100%;
 }
@@ -27,10 +29,21 @@
     padding: $s-size;
 }
 
-// 'Remove All' button
+// 'Remove All' button modifier
 .button--link {
     background: none;
     border: none;
     color: $off-white;
     padding: 0;
+}
+
+// *** MEDIA QUERIES *** //
+
+/* 
+/ checks screen width and applies styles based on condition
+*/
+@media (min-width: $desktop-breakpoint) {
+    .big-button {
+        margin-bottom: $xl-size;
+    }
 }

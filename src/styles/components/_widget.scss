@@ -5,7 +5,10 @@
     background: $light-blue;
 }
 
-// widget p tag
+/*
+/ widget element
+/ widget p tag
+*/
 .widget__message {
     border-bottom: 1px solid lighten($light-blue, 10%);
     color: $off-white;
@@ -23,6 +26,7 @@
     padding: $m-size;
 }
 
+// widget-header element
 .widget-header__title {
     margin: 0;
 }
