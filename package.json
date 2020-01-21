@@ -8,7 +8,6 @@
   "scripts": {
     "build:dev": "webpack",
     "build:prod": "webpack -p --env production",
-    "serve": "live-server public /",
     "dev-server": "webpack-dev-server",
     "start": "node server/server.js",
     "heroku-postbuild": "npm run build:prod"
@@ -20,9 +19,9 @@
     "babel-plugin-transform-class-properties": "6.24.1",
     "babel-preset-env": "1.7.0",
     "babel-preset-react": "6.24.1",
-    "css-loader": "^3.4.2",
-    "express": "^4.17.1",
-    "node-sass": "^4.13.1",
+    "css-loader": "3.4.2",
+    "express": "4.17.1",
+    "node-sass": "4.13.1",
     "normalize.css": "7.0.0",
     "react": "16.0.0",
     "react-dom": "16.12.0",
@@ -33,7 +32,6 @@
     "webpack": "3.1.0"
   },
   "devDependencies": {
-    "live-server": "1.2.1",
     "webpack-dev-server": "^3.10.1"
   }
 }
